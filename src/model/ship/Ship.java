@@ -6,6 +6,7 @@ import model.Shooter;
 import model.bullet.FastBullet;
 import model.bullet.HeavyBullet;
 import model.unit.PurposableUnit;
+import window.WindowConfig;
 
 import java.awt.*;
 import java.util.concurrent.Executors;
@@ -45,8 +46,12 @@ public class Ship extends PurposableUnit implements Movable, Controllable, Shoot
     public void move() {
         float dy = - (float) Math.cos(angle) * speed;
         float dx = (float) Math.sin(angle) * speed;
-        x += dx;
-        y += dy;
+        if (0 <= x + dx && x + dx <= WindowConfig.windowConfig().width) {
+            x += dx;
+        }
+        if (0 <= y + dy && y + dy <= WindowConfig.windowConfig().height) {
+            y += dy;
+        }
     }
 
     @Override
@@ -71,16 +76,25 @@ public class Ship extends PurposableUnit implements Movable, Controllable, Shoot
 
     @Override
     public void onShootFast() {
+        if (getCoins() < 2) {
+            return;
+        }
+        decreaseCoins(2);
         new FastBullet(x, y + modelHeight / 2, angle, this);
     }
 
     @Override
     public void onShootHeavy() {
+        if (getCoins() < 1) {
+            return;
+        }
+        decreaseCoins(1);
         new HeavyBullet(x, y + modelHeight / 2, angle, this);
     }
 
     @Override
     public void onBoost() {
+        if (getCoins() < 10) return;
         decreaseCoins(10);
         speed = 8.0f;
         scheduler.schedule(() -> {

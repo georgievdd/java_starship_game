@@ -8,7 +8,7 @@ public abstract class PurposableUnit extends LivingUnit implements Purposable {
     int coins;
     public PurposableUnit(float x, float y, Image image, int modelWidth, int modelHeight, int hp) {
         super(x, y, image, modelWidth, modelHeight, hp);
-        this.coins = 100;
+        this.coins = 10;
     }
 
     public void addCoins(int amount) {

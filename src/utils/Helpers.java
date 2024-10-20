@@ -2,12 +2,11 @@ package utils;
 
 import model.Living;
 import model.unit.Unit;
+import window.WindowConfig;
 
 import java.util.HashSet;
 
 public class Helpers {
-
-
     public static boolean hasIntersect(Unit u1, Unit u2) {
         float left1 = (float) (u1.x - u1.modelWidth / 2.0);
         float right1 = (float) (u1.x + u1.modelWidth / 2.0);
@@ -31,4 +30,11 @@ public class Helpers {
         return hs;
     }
 
+    public static int getRandomHeight() {
+        return (int) (Math.random() * WindowConfig.windowConfig().height);
+    }
+
+    public static int getRandomWidth() {
+        return (int) (Math.random() * WindowConfig.windowConfig().width);
+    }
 }

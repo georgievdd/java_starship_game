@@ -18,6 +18,7 @@ public class ImageLoader {
     public static Image fastBullet() {
         return loadImage("fast-bullet");
     }
+    public static Image coin() {return loadImage("coin");}
 
     private static Image loadImage(String filename) {
         try {

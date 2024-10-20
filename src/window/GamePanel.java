@@ -5,6 +5,8 @@ import config.keyboard.KeyboardManager;
 import game.GameManager;
 import model.UnitManager;
 import model.bullet.Bullet;
+import model.coin.Coin;
+import model.coin.CoinManager;
 import player.Player;
 
 import javax.swing.*;
@@ -19,11 +21,13 @@ public class GamePanel extends JPanel implements ActionListener {
     UnitManager unitManager;
     KeyboardManager keyboardManager;
     GameManager gameManager;
+    CoinManager coinManager;
 
     public GamePanel() {
         unitManager = new UnitManager();
         keyboardManager = new KeyboardManager();
         gameManager = new GameManager();
+        coinManager = new CoinManager();
         setFocusable(true);
         addKeyListener(keyboardManager);
         initPlayers();
@@ -38,16 +42,38 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void updateGame() {
+        coinManager.addCoin();
         unitManager.forEach(unit -> {
             if (unit instanceof Bullet bullet) {
                 if (bullet.isOutOfMap()) {
-                    unitManager.addToRemoveList(unit);
+                    unitManager.addToRemoveList(bullet);
                     return;
                 }
                 gameManager.getLivings(bullet.getShooter()).forEach(living -> {
                     if (bullet.checkHit(living)) {
                         living.decreaseHP(bullet.getDamage());
-                        unitManager.addToRemoveList(unit);
+                        unitManager.addToRemoveList(bullet);
+                    }
+                });
+            }
+            if (unit instanceof Coin coin) {
+                if (coin.isOutOfMap()) {
+                    unitManager.addToRemoveList(coin);
+                    coinManager.removeCoin(coin);
+                    return;
+                }
+                for (Coin otherCoin : coinManager.getCoinSet()) {
+                    if (coin != otherCoin && coin.hasContact(otherCoin)) {
+                        unitManager.addToRemoveList(coin);
+                        coinManager.removeCoin(coin);
+                        return;
+                    }
+                }
+                gameManager.getShips().forEach(player -> {
+                    if (coin.hasContact(player)) {
+                        player.addCoins(5);
+                        unitManager.addToRemoveList(coin);
+                        coinManager.removeCoin(coin);
                     }
                 });
             }
@@ -66,7 +92,7 @@ public class GamePanel extends JPanel implements ActionListener {
         keyboardManager.addKeyConfiguration(player1.getKeyConfiguration());
         keyboardManager.addKeyConfiguration(player2.getKeyConfiguration());
         unitManager.add(player1.getShip());
-        unitManager.add(player2.getShip());
+//        unitManager.add(player2.getShip());
         gameManager.addPlayerInfo(player1.getShip(), inHashSet(player2.getShip()));
         gameManager.addPlayerInfo(player2.getShip(), inHashSet(player1.getShip()));
     }
