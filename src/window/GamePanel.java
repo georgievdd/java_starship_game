@@ -3,10 +3,8 @@ package window;
 import config.keyboard.KeyConfiguration;
 import config.keyboard.KeyboardManager;
 import game.GameManager;
-import model.Drawable;
-import model.Living;
+import model.UnitManager;
 import model.bullet.Bullet;
-import model.unit.Unit;
 import player.Player;
 
 import javax.swing.*;
@@ -14,9 +12,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.util.HashSet;
-import java.util.List;
-import java.util.ArrayList;
 
 import static utils.Helpers.inHashSet;
 

@@ -5,13 +5,13 @@ import model.Drawable;
 import java.awt.*;
 
 public abstract class Unit implements Drawable {
-    public double x;
-    public double y;
+    public float x;
+    public float y;
     public int modelWidth;
     public int modelHeight;
     public Image image;
 
-    public Unit(double x, double y, Image image, int modelWidth, int modelHeight) {
+    public Unit(float x, float y, Image image, int modelWidth, int modelHeight) {
         this.x = x;
         this.y = y;
         this.image = image;

@@ -5,8 +5,7 @@ import model.Living;
 import model.Movable;
 import model.Shooter;
 import model.unit.Unit;
-import utils.Helpers;
-import window.UnitManager;
+import model.UnitManager;
 import window.WindowConfig;
 
 import java.awt.*;
@@ -18,12 +17,12 @@ public abstract class Bullet extends Unit implements Movable, Hitting {
     static UnitManager unitManager = new UnitManager();
 
     protected Shooter shooter;
-    protected double angle;
-    protected double speed;
+    protected float angle;
+    protected float speed;
     protected int damage;
     protected int cost;
 
-    public Bullet(double x, double y, Image image, int modelWidth, int modelHeight, double angle, Shooter shooter) {
+    public Bullet(float x, float y, Image image, int modelWidth, int modelHeight, float angle, Shooter shooter) {
         super(x, y, image, modelWidth, modelHeight);
         this.angle = angle;
         this.shooter = shooter;
@@ -49,8 +48,8 @@ public abstract class Bullet extends Unit implements Movable, Hitting {
 
     @Override
     public void move() {
-        double dy = - Math.cos(angle) * speed;
-        double dx = Math.sin(angle) * speed;
+        float dy = - (float) Math.cos(angle) * speed;
+        float dx = (float) Math.sin(angle) * speed;
         x += dx;
         y += dy;
     }

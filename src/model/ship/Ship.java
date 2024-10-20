@@ -14,15 +14,15 @@ import java.util.concurrent.TimeUnit;
 
 public class Ship extends PurposableUnit implements Movable, Controllable, Shooter {
 
-    double angle;
-    double speed;
-    double angleRelease;
+    float angle;
+    float speed;
+    float angleRelease;
     private ScheduledExecutorService scheduler;
 
-    public Ship(double x, double y, Image image, float angle) {
+    public Ship(float x, float y, Image image, float angle) {
         super(x, y, image, 100, 100, 100);
         this.angle = angle;
-        this.speed = 4.0d;
+        this.speed = 4.0f;
         this.angleRelease = 0;
         this.scheduler = Executors.newScheduledThreadPool(1);
     }
@@ -43,20 +43,20 @@ public class Ship extends PurposableUnit implements Movable, Controllable, Shoot
 
     @Override
     public void move() {
-        double dy = - Math.cos(angle) * speed;
-        double dx = Math.sin(angle) * speed;
+        float dy = - (float) Math.cos(angle) * speed;
+        float dx = (float) Math.sin(angle) * speed;
         x += dx;
         y += dy;
     }
 
     @Override
     public void onStartRight() {
-        angleRelease = Math.PI / 45;
+        angleRelease = (float) (Math.PI / 45);
     }
 
     @Override
     public void onStartLeft() {
-        angleRelease = - Math.PI / 45;
+        angleRelease = (float) (- Math.PI / 45);
     }
 
     @Override
@@ -82,9 +82,9 @@ public class Ship extends PurposableUnit implements Movable, Controllable, Shoot
     @Override
     public void onBoost() {
         decreaseCoins(10);
-        speed = 8.0d;
+        speed = 8.0f;
         scheduler.schedule(() -> {
-            speed = 4.0d;
+            speed = 4.0f;
             scheduler.shutdown();
         }, 2, TimeUnit.SECONDS);
     }

@@ -10,7 +10,7 @@ public class Player implements Configurable {
 
     public Player(int id, KeyConfiguration keyConfiguration) {
         this.keyConfiguration = keyConfiguration;
-        ship = new Ship(100.0d * id, 100.0d * id, ImageLoader.ship(id), (float) Math.PI / 2);
+        ship = new Ship(100.0f * id, 100.0f * id, ImageLoader.ship(id), (float) Math.PI / 2);
         keyConfiguration.bind(ship);
     }
 

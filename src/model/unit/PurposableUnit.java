@@ -6,7 +6,7 @@ import java.awt.*;
 
 public abstract class PurposableUnit extends LivingUnit implements Purposable {
     int coins;
-    public PurposableUnit(double x, double y, Image image, int modelWidth, int modelHeight, int hp) {
+    public PurposableUnit(float x, float y, Image image, int modelWidth, int modelHeight, int hp) {
         super(x, y, image, modelWidth, modelHeight, hp);
         this.coins = 100;
     }

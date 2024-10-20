@@ -1,4 +1,4 @@
-package window;
+package model;
 
 import model.Drawable;
 
