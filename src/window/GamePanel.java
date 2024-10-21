@@ -71,7 +71,7 @@ public class GamePanel extends JPanel implements ActionListener {
                 }
                 gameManager.getShips().forEach(player -> {
                     if (coin.hasContact(player)) {
-                        player.addCoins(5);
+                        player.addCoins(20);
                         unitManager.addToRemoveList(coin);
                         coinManager.removeCoin(coin);
                     }
@@ -92,7 +92,7 @@ public class GamePanel extends JPanel implements ActionListener {
         keyboardManager.addKeyConfiguration(player1.getKeyConfiguration());
         keyboardManager.addKeyConfiguration(player2.getKeyConfiguration());
         unitManager.add(player1.getShip());
-//        unitManager.add(player2.getShip());
+        unitManager.add(player2.getShip());
         gameManager.addPlayerInfo(player1.getShip(), inHashSet(player2.getShip()));
         gameManager.addPlayerInfo(player2.getShip(), inHashSet(player1.getShip()));
     }

@@ -14,7 +14,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class Ship extends PurposableUnit implements Movable, Controllable, Shooter {
-
     float angle;
     float speed;
     float angleRelease;
@@ -46,11 +45,15 @@ public class Ship extends PurposableUnit implements Movable, Controllable, Shoot
     public void move() {
         float dy = - (float) Math.cos(angle) * speed;
         float dx = (float) Math.sin(angle) * speed;
-        if (0 <= x + dx && x + dx <= WindowConfig.windowConfig().width) {
-            x += dx;
+
+        float nx = x + dx;
+        float ny = y + dy;
+
+        if (0 <= nx && nx + modelWidth <= WindowConfig.windowConfig().width) {
+            x = nx;
         }
-        if (0 <= y + dy && y + dy <= WindowConfig.windowConfig().height) {
-            y += dy;
+        if (0 <= ny && ny + modelHeight <= WindowConfig.windowConfig().height) {
+            y = ny;
         }
     }
 
