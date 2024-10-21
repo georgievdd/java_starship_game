@@ -93,6 +93,10 @@ public class GamePanel extends JPanel implements ActionListener {
         keyboardManager.addKeyConfiguration(player2.getKeyConfiguration());
         unitManager.add(player1.getShip());
         unitManager.add(player2.getShip());
+        unitManager.add(player1.getStateBar().getCoinBar());
+        unitManager.add(player1.getStateBar().getHearthBar());
+        unitManager.add(player2.getStateBar().getHearthBar());
+        unitManager.add(player2.getStateBar().getCoinBar());
         gameManager.addPlayerInfo(player1.getShip(), inHashSet(player2.getShip()));
         gameManager.addPlayerInfo(player2.getShip(), inHashSet(player1.getShip()));
     }
